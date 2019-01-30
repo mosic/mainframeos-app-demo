@@ -12,7 +12,7 @@ class App extends Component {
   onClick = async () => {
     try {
       const name = 'avatar.jpg'
-      await sdk.storage.requestUpload({name: name})
+      await sdk.storage.promptUpload({name: name})
       this.setState({url: `app-file://${name}`})
     }
     catch(error) {
