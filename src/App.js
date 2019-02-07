@@ -8,12 +8,23 @@ class App extends Component {
   state = {
     url: null,
   }
-
-  onClick = async () => {
+  uploadImage = async () => {
     try {
-      const name = 'avatar.jpg'
+      let number = (Math.random() * 100 ) << 0
+      const name = `avatar_${number}.jpg`
+      console.log(name, 'name')
       await sdk.storage.promptUpload({name: name})
       this.setState({url: `app-file://${name}`})
+    }
+    catch(error) {
+      console.log(error, 'error')
+    }
+  }
+
+  list = async () => {
+    try {
+      const list = await sdk.storage.list()
+      console.log(list, 'list')
     }
     catch(error) {
       console.log(error, 'error')
@@ -25,7 +36,10 @@ class App extends Component {
 
     return (
       <div>
-        <button onClick={this.onClick}>Upload Image</button>
+        <button onClick={this.uploadImage}>Upload Image</button>
+        <br/>
+        <br/>
+        <button onClick={this.list}>List</button>
         <br/>
         {url ? <img alt='avatar' src={url} /> : null}
       </div>
